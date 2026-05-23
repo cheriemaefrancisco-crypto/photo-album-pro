@@ -4,7 +4,7 @@
 <section class="section-head">
   <div>
     <h1>{{ album.title }}</h1>
-    <p>{{ album.description }}</p>
+    <p class="subtle">{{ album.description|default:"No album description yet." }}</p>
   </div>
   <div class="actions">
     <a class="cta" href="{% url 'albums:photo-add' %}">Add Photo</a>
@@ -25,7 +25,7 @@
       </div>
     </article>
   {% empty %}
-    <p>No photos uploaded yet.</p>
+    <p class="empty">No photos uploaded yet. Add your first photo now.</p>
   {% endfor %}
 </div>
 {% endblock %}

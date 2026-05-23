@@ -2,6 +2,7 @@
 {% block content %}
 <section class="form-shell">
   <h1>{{ form_title }}</h1>
+  <p class="subtle">Complete the fields below and save your changes.</p>
   <form method="post" target="_self" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

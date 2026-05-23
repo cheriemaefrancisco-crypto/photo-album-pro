@@ -30,7 +30,7 @@
   <main class="container">
     {% if messages %}
       {% for message in messages %}
-        <div class="flash">{{ message }}</div>
+        <div class="flash {% if message.tags %}flash-{{ message.tags }}{% endif %}">{{ message }}</div>
       {% endfor %}
     {% endif %}
     {% block content %}{% endblock %}

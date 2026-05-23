@@ -2,7 +2,10 @@
 {% block title %}Albums | Photo Album Pro{% endblock %}
 {% block content %}
 <section class="section-head">
-  <h1>Your Albums</h1>
+  <div>
+    <h1>Your Albums</h1>
+    <p class="subtle">Manage your collections and keep memories organized.</p>
+  </div>
   <a class="cta" href="{% url 'albums:album-add' %}">Create Album</a>
 </section>
 <div class="grid">
@@ -14,7 +17,7 @@
       <a href="{% url 'albums:album-detail' album.pk %}">Open Album</a>
     </article>
   {% empty %}
-    <p>No albums yet.</p>
+    <p class="empty">No albums yet. Create your first album to get started.</p>
   {% endfor %}
 </div>
 {% endblock %}
