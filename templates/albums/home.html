@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Welcome | Photo Album Pro{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Production-Ready Photo Album Management</h1>
+  <p>Securely organize albums, upload images to Cloudinary, and manage access with role-based controls.</p>
+  {% if user.is_authenticated %}
+    <a class="cta" href="{% url 'albums:album-list' %}">Open Dashboard</a>
+  {% else %}
+    <a class="cta" href="{% url 'login' %}">Sign In to Start</a>
+  {% endif %}
+</section>
+{% endblock %}

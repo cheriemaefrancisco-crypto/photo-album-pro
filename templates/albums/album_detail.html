@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ album.title }} | Photo Album Pro{% endblock %}
+{% block content %}
+<section class="section-head">
+  <div>
+    <h1>{{ album.title }}</h1>
+    <p>{{ album.description }}</p>
+  </div>
+  <div class="actions">
+    <a class="cta" href="{% url 'albums:photo-add' %}">Add Photo</a>
+    <a href="{% url 'albums:album-edit' album.pk %}">Edit Album</a>
+    <a href="{% url 'albums:album-delete' album.pk %}">Delete Album</a>
+  </div>
+</section>
+
+<div class="photo-grid">
+  {% for photo in album.photos.all %}
+    <article class="photo-card">
+      <img src="{{ photo.image.url }}" alt="{{ photo.title }}">
+      <h3>{{ photo.title }}</h3>
+      <p>{{ photo.caption }}</p>
+      <div class="actions">
+        <a href="{% url 'albums:photo-edit' photo.pk %}">Edit</a>
+        <a href="{% url 'albums:photo-delete' photo.pk %}">Delete</a>
+      </div>
+    </article>
+  {% empty %}
+    <p>No photos uploaded yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

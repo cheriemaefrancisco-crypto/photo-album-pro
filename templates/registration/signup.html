@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="form-shell auth">
+  <h1>Create Account</h1>
+  <form id="auth-form" method="post" target="_self">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="cta" type="submit">Sign Up</button>
+  </form>
+  <p>Already have an account? <a href="{% url 'login' %}">Login</a>.</p>
+</section>
+<script>
+  (function () {
+    const form = document.getElementById("auth-form");
+    if (!form) return;
+    const passwordInputs = form.querySelectorAll('input[type="password"]');
+    passwordInputs.forEach((input) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "password-field";
+      input.parentNode.insertBefore(wrapper, input);
+      wrapper.appendChild(input);
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "password-toggle";
+      btn.setAttribute("aria-label", "Show password");
+      btn.innerHTML = "&#128065;";
+      btn.addEventListener("click", () => {
+        const hidden = input.type === "password";
+        input.type = hidden ? "text" : "password";
+        btn.innerHTML = hidden ? "&#128584;" : "&#128065;";
+        btn.setAttribute("aria-label", hidden ? "Hide password" : "Show password");
+      });
+      wrapper.appendChild(btn);
+    });
+  })();
+</script>
+{% endblock %}

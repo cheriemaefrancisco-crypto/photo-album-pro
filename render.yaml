@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: django-photo-album
+    env: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn photo_album.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_HOSTS
+        value: django-photo-album.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: photo-album-db
+          property: connectionString
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+
+databases:
+  - name: photo-album-db
+    databaseName: photo_album
+    plan: free
+    user: photo_album_user

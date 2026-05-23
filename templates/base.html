@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_self">
+  <title>{% block title %}Photo Album{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">Photo Album Pro</a>
+    <nav>
+      {% if user.is_authenticated %}
+        <a href="{% url 'albums:album-list' %}">Albums</a>
+        <a href="{% url 'albums:album-add' %}">New Album</a>
+        <a href="{% url 'albums:photo-add' %}">Upload Photo</a>
+        <form method="post" target="_self" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button class="link-btn" type="submit">Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'albums:signup' %}">Sign Up</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
